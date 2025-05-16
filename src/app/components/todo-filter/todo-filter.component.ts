@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TodosFilter } from '../../models/todos-filter.type';
 
 @Component({
   selector: 'todo-filter',
   imports: [MatButtonToggleModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-button-toggle-group
       [value]="currentFilter"

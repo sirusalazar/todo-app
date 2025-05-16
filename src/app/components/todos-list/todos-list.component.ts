@@ -1,19 +1,24 @@
-import { Component, EventEmitter, Input, Output, output } from '@angular/core';
-import { MatSelectionList, MatListOption } from '@angular/material/list';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Todo } from '../../models/todo.model';
 import { DatePipe, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'todos-list',
-  imports: [MatSelectionList, MatListOption, MatIconModule, NgStyle, DatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [MatIconModule, NgStyle, DatePipe, MatListModule, MatCheckboxModule],
   template: `
-    <mat-selection-list class="todos-list">
+    <mat-list class="todos-list">
       @for(todo of todos; track todo.id; let index = $index){
-      <mat-list-option
-        [selected]="todo.completed"
-        (selectedChange)="onTodoToggled(todo.id, $event)"
-      >
+      <mat-list-item class="todo-item">
         <div class="todo-item">
           <mat-icon class="delete-todo" (click)="onDeleteTodo(todo.id, $event)"
             >delete</mat-icon
@@ -29,17 +34,18 @@ import { DatePipe, NgStyle } from '@angular/common';
               >Due Date: {{ todo.dueDate | date : 'M/dd/yyyy' }}</small
             >
           </div>
+          <mat-checkbox
+            class="item-checkbox"
+            [checked]="todo.completed"
+            (change)="onTodoToggled(todo.id, $event.checked)"
+          ></mat-checkbox>
         </div>
-      </mat-list-option>
-
+      </mat-list-item>
       }
-    </mat-selection-list>
+    </mat-list>
   `,
   styles: [
     `
-      mat-list-option {
-        margin-bottom: 10px;
-      }
       .todos-list,
       .todo-input {
         width: 100%;
@@ -48,6 +54,10 @@ import { DatePipe, NgStyle } from '@angular/common';
       .todo-item {
         display: flex;
         align-items: center;
+      }
+      mat-list-item {
+        border-bottom: 1px solid var(--mat-standard-button-toggle-divider-color);
+        margin-bottom: 10px;
       }
 
       .delete-todo {
@@ -58,6 +68,7 @@ import { DatePipe, NgStyle } from '@angular/common';
       .todo-item-description {
         display: flex;
         flex-direction: column;
+        flex-grow: 1;
 
         small {
           font-size: 12px;
