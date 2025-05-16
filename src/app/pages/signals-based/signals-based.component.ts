@@ -22,8 +22,8 @@ import { openAddTodoForm } from '../../utils/open-add-todo-form';
       <h2>Signals Based</h2>
       <button mat-raised-button color="primary" (click)="addTodo()">New</button>
     </header>
-    <todo-filter />
-    <todos-list />
+    <todo-filter [currentFilter]="'all'" />
+    <todos-list [todos]="[]" />
   </div>`,
   styles: ``,
 })

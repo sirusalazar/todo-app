@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { TodosFilter } from '../../models/todos-filter.type';
 
 @Component({
   selector: 'todo-filter',
   imports: [MatButtonToggleModule],
   template: `
-    <mat-button-toggle-group>
+    <mat-button-toggle-group
+      [value]="currentFilter"
+      (change)="filterChanged.emit($event.value)"
+    >
       <mat-button-toggle value="all">All</mat-button-toggle>
       <mat-button-toggle value="active">Pending</mat-button-toggle>
       <mat-button-toggle value="completed">Completed</mat-button-toggle>
@@ -14,4 +18,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
   `,
   styles: ``,
 })
-export class TodoFilterComponent {}
+export class TodoFilterComponent {
+  @Input({ required: true }) currentFilter!: TodosFilter;
+  @Output() filterChanged = new EventEmitter<TodosFilter>();
+}

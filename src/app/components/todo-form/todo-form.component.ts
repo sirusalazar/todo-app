@@ -72,7 +72,7 @@ export class TodoFormComponent {
   form = createTodoForm();
   today = new Date();
 
-  constructor(private dialogRef: MatDialogRef<TodoFormComponent>) {}
+  private dialogRef = inject(MatDialogRef);
 
   onSaveTodo() {
     this.dialogRef.close(this.form.getRawValue());
