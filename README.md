@@ -21,3 +21,7 @@ This project contains a basic implementation of a todo List with the following f
 3. Implementation of a state management system based on signals stores.
 4. Data persists in local storage.
 5. Route configuration for the different implementations.
+
+## UI Preview
+
+![UI example](/src/assets/images/Screenshot.jpg "TODO app")
